@@ -33,7 +33,6 @@ func getSlotMachine() (columns [][]string) {
 		allSymbols = append(allSymbols, symbol)
 	}
 
-	// var columns [][]string
 	for i := 0; i < int(COLS); i++ {
 		var column []string
 		currentSymbols := allSymbols[:]
@@ -52,6 +51,24 @@ func getSlotMachine() (columns [][]string) {
 
 	fmt.Println(columns)
 	return columns
+}
+
+func printSlotMachine(columns [][]string) {
+	count := 0
+	for i := 0; i < len(columns[0]); i++ {
+		for j := 0; j < len(columns[0]); j++ {
+			if j == count {
+				fmt.Print(columns[i][count])
+				if i < (len(columns[0]) - 1) {
+					fmt.Print(" | ")
+				} else if i == (len(columns[0]) - 1) {
+					count += 1
+					i = 0
+					fmt.Println()
+				}
+			}
+		}
+	}
 }
 
 func deposit() int32 {
@@ -103,20 +120,22 @@ func getBet() int32 {
 }
 
 func main() {
-	// getSlotMachine()
-	balance := deposit()
-	lines := getNumberOfLines()
+	slots := getSlotMachine()
+	fmt.Println("slots: ", slots)
+	printSlotMachine(slots)
+	// balance := deposit()
+	// lines := getNumberOfLines()
 
-	for {
-		bet := getBet()
-		totalBet := bet * lines
+	// for {
+	// 	bet := getBet()
+	// 	totalBet := bet * lines
 
-		if totalBet > balance {
-			fmt.Printf("You do not have enough to bet that amount, your current balance is: %d", balance)
-		} else {
-			break
-		}
-		fmt.Printf("You are betting %d on %d lines. Total bet is equal to: %d", bet, lines, totalBet)
-	}
+	// 	if totalBet > balance {
+	// 		fmt.Printf("You do not have enough to bet that amount, your current balance is: %d", balance)
+	// 	} else {
+	// 		break
+	// 	}
+	// 	fmt.Printf("You are betting %d on %d lines. Total bet is equal to: %d\n", bet, lines, totalBet)
+	// }
 
 }
